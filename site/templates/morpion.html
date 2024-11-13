@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- BOOTSTRAP ET AUTRE-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.118.2">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/heroes/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-5.3.2-examples/heroes/bootstrap.min.css') }}">
+
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{url_for('static', filename='morpion.css')}}">
+    <title>morpion</title>
+    <link rel="icon" href="{{url_for('static', filename='logo.PNG')}}">
+
+  </head>
+
+  <body>
+
+    <br><br>
+
+    <section id="jeu">                            <!-- creation d'une balise section avec toute les case du jeu qui on toute un index different-->
+      <div data-index="0" class="case"></div>
+      <div data-index="1" class="case"></div>
+      <div data-index="2" class="case"></div>
+      <div data-index="3" class="case"></div>
+      <div data-index="4" class="case"></div>
+      <div data-index="5" class="case"></div>
+      <div data-index="6" class="case"></div>
+      <div data-index="7" class="case"></div>
+      <div data-index="8" class="case"></div>
+    </section>
+
+    <h2></h2>        <!-- utiliser pour phrase du JS-->
+
+      <!-- BOUTON MENU PRINCIPAL -->
+        <button id="recommencer">Recommencer</button>
+
+    <br><br>
+
+    <!-- BOUTON MENU PRINCIPAL -->
+      <form action="/" method="GET">
+        <button>Menu Principal</button>
+      </form> 
+
+    <!-- DEBUT JS -->
+    <script>
+      const statut = document.querySelector("h2")               // utilisation de la balise h2 du html pour afficher texte (L36)
+      let jeuActif = true                                       // CREATION VARAIBLE jeuActif
+      let joueurActif = "X"                                     // CREATION VARIABLE joueurActif
+      let etatJeu = ["", "", "", "", "", "", "", "", ""]        // creation jeu avec case vide
+
+      const conditionsVictoire = [                              // creation de toute les possibilite de victoire avec leur indice
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [2, 4, 6],
+      ]
+
+      // creation de phrase afficher sous la grille de jeu
+      const gagne = () => `Le joueur ${joueurActif} a gagné`  // fonction fleche qui affiche le message victoire
+      const egalite = () => `Egalité`                         // fonction fleche qui affiche le message egalité
+      const tourJoueur = () => `Au tour des ${joueurActif}`   // fonction fleche qui affiche le message tour joueur
+
+      statut.innerHTML = tourJoueur()     // affiche dans le status (L50) du html (h2) la fonction tourJoueur()
+
+      document.querySelectorAll(".case").forEach(cell => cell.addEventListener("click",gestionClicCase))  // utilise la fonction gestionClicCase a chaque fois que l'on clic sur une case
+      document.querySelector("#recommencer").addEventListener("click",recommencer)                        // execute la fonction recommencer quand on clique sur le button grace a id
+
+      function gestionClicCase(){
+        const indexCase = parseInt (this.dataset.index)   // recupere sous la forme d'un entier la valeur de la case cliquée
+        
+        if (etatJeu[indexCase] != "" || !jeuActif ){    // verifie si il y a deja un symbole dans la case cliquer  ou si le jeu n'est pas actif 
+          return
+        }
+
+        etatJeu[indexCase] = joueurActif  // ajoute le symbole au tableau invisible pour les joueur de etatJeu a l'indice ou on clique
+        this.innerHTML = joueurActif      // affiche dans la grille visible par les joueur le symbole 
+
+        verifGagne()
+        
+      }
+
+      function verifGagne(){
+        let tourGagnant = false   // definit sur false le tour gagnant
+
+        for(let conditionVictoire of conditionsVictoire){   // iteration de la boucle for a chaque element et verifie si les 3 val sont identique si oui arrete le jeu sinon ne fait rien
+          let val1 = etatJeu[conditionVictoire[0]]          // val1 -> condition indice 1 des possibilite créer
+          let val2 = etatJeu[conditionVictoire[1]]          // val2 -> ... 
+          let val3 = etatJeu[conditionVictoire[2]]          // val3 -> ...
+          if(val1 == "" || val2 =="" ||val3 ==""){          // si pas identique fait rien -> continue
+            continue
+          }
+          if(val1 == val2 && val2 == val3){                 // si identique
+            tourGagnant = true                              // change la var sur true et sort de la boucle
+            enregistrer_gagnant(joueurActif);               // appel la fonction avec le nom du gagnant
+            break;                                          // sort de la boucle
+          }
+        }
+        if (tourGagnant){                   // si tour gagnant
+          statut.innerHTML = gagne()        // affiche gagne()
+          jeuActif = false                  // arrete le jeu
+          return 
+        }
+
+        if(!etatJeu.includes("")){          // si pas de case vide -> grille pleine -> egalite
+          statut.innerHTML = egalite()      // affiche gagne()
+          enregistrer_gagnant("o")
+          jeuActif = false                  // arrete le jeu
+          return 
+        }
+
+        joueurActif = joueurActif == "X" ? "O" : "X"    // fait passer de X a O le joueurActif (si joueurActif est X alors fait passer a O sinon fait passer a X)
+        statut.innerHTML = tourJoueur()                 // affiche tourJoueur()
+      }
+
+      function recommencer(){                         // permet de recommencer une partie 
+        joueurActif = "X"                                                       // repasser le joueurActif a X
+        jeuActif = true                                                         // jeuActif sur true
+        etatJeu = ["", "", "", "", "", "", "", "", ""]                          // tableau vide pour detection 
+        statut.innerHTML = tourJoueur()                                         // message pour dire que c'est au joueur de jouer
+        document.querySelectorAll(".case").forEach(cell => cell.innerHTML ="")  // vide visuellement toute les case
+      }
+
+
+      function enregistrer_gagnant(gagnant) { // renvoie le gagnant au python pour la BDD
+        const xhr = new XMLHttpRequest();                               // creer un objet XMLHttpRequest (objet JS pour faire des requette html vers serv web (flask) sans relance la page) 
+        xhr.open("POST", "/enregistrer_gagnant", true);                 // initialise la requette http en methode POST, sur l'url /enregistrer_gagnant et true pour dire que la requete ne bloquera pas le reste du site pendant la requete
+        xhr.setRequestHeader("Content-Type", "application/json");       // indique au serv que la requete est au format JSON
+        xhr.send(JSON.stringify({ gagnant: gagnant }));                 // envoie une requete http et convertie la variable gagnant au format JSON pour l'envoyer dans la requete 
+      }
+
+    </script>
+
+  </body>
+
+</html>
