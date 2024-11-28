@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- BOOTSTRAP ET AUTRE-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.118.2">
+  
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/heroes/">
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+  
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-5.3.2-examples/heroes/bootstrap.min.css') }}">
+
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>morpion </title>
+    <link rel="icon" href="{{url_for('static', filename='logo.PNG')}}">
+
+  </head>
+
+  <body>   
+    <br><br><br>
+    <!-- POPUP REGLE JEU -->
+        </form>
+      </div>
+    <div class="open-btn">
+      <button class="open-button" onclick="openForm()"><strong>Règles Morpion</strong></button><!--bouton pour ouvrir la pop up -->
+    </div>
+    <div class="login-popup">
+      <div class="form-popup" id="popupForm">
+        <form action="/action_page.php" class="form-container">
+          <h1>REGLES MORPION</h1>
+          <h2>Le but du jeu est d'aligner trois de ses symboles à l'horizontal, la verticale ou en diagonale pour gagner la partie.</h2>
+          <button type="button" class="btn cancel" onclick="closeForm()">Fermer</button>
+        </form>
+      </div>
+    </div>
+
+    <br><br><br><br>      
+
+
+    <!-- CONNEXION JEU-->
+    <form action="/morpion" method="POST">
+      <login>Connexion :</login> 
+        <br><br>
+        <input type="hidden" name="action" value="co"/>              <!-- creation d'une balise invisible avec comme nom 'action' pour separer les connexion des creation de compte avec la value dans le py-->
+        <input type="text" name="id_co_m" placeholder="Identifiant" required /> <!-- ligne pour mettre l'id de type text avec en 'font' ecrit que l'on doit mettre son id et avec 'required' qui permet l'obligation de remplir cette case-->
+        <br>
+        <input type="password" name="mdp_co_m" placeholder="Mot de passe" required/> <!-- ligne pour mettre le mdp de type password avec en 'font' ecrit que l'on doit mettre son mdp et avec 'required' qui permet l'obligation de remplir cette case-->
+        <br>
+        <input type="submit"  value="Connexion"/>
+    </form>
+
+
+      <br><br><br><br>
+
+    <!-- CREATION COMPTE -->
+    <form action="/morpion" method="POST">
+      <login>Créer un compte :</login> 
+        <br><br>
+        <input type="hidden" name="action" value="creation_compte"/>         <!-- creation d'une balise invisible avec comme nom 'action' pour separer les connexion des creation de compte dans la value dans le py-->
+        <input type="text" name="id_crea_m" placeholder="Identifiant" required /> <!-- ligne pour mettre l'id de type text avec en 'font' ecrit que l'on doit mettre son id et avec 'required' qui permet l'obligation de remplir cette case-->
+        <br>
+        <input type="password" name="mdp_crea_m" placeholder="Mot de passe" required/> <!-- ligne pour mettre le mdp de type password avec en 'font' ecrit que l'on doit mettre son mdp et avec 'required' qui permet l'obligation de remplir cette case-->
+        <br>
+        <input type="submit"  value="Créer le compte"/>
+    </form>  
+
+    <br><br><br><br>
+
+
+    <!-- BOUTON MENU PRINCIPAL -->
+      <form action="/" method="GET">
+        <button>Menu principal</button>
+      </form>
+
+    <!-- JS -->
+    <script>
+      function openForm() {/*selectionne l'element ayant l'id "popup form" et change son style pour l'afficher (display = "block")*/
+        document.getElementById("popupForm").style.display = "block";
+      }
+
+      function closeForm() {/*selectionne l'elmt ayant pour id "popup form" et change son stle pour le masquer */
+        document.getElementById("popupForm").style.display = "none";
+      }
+    </script>
+  
+  </body>
+
+</html>
+

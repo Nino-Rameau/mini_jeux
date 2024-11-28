@@ -1,0 +1,29 @@
+body{
+  background-image: linear-gradient(to right, hsla(46, 69%, 60%, 0.87), rgb(216, 135, 14)) ;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+  text-align: center;
+}
+
+canvas{
+  border: 2px solid;
+}
+
+/* BOUTON RETOUR */
+button {
+  border: none;
+  color: #fff;
+  background-image: linear-gradient(30deg, #fdd8349c, #e0d318e5);
+  border-radius: 25px;
+  background-size: 100% auto;
+  font-family: inherit;
+  font-size: 30px;
+  padding: 1em 1,8em;
+  cursor: pointer;
+  }
+  
+button:hover {
+  background-position: right center;
+  background-size: 200% auto;
+  -webkit-animation: pulse 2s infinite;
+  animation: pulse512 1.5s infinite;
+  }

@@ -1,0 +1,139 @@
+
+/* UTILISER DANS : page principal*/
+body{
+    text-align:center;
+    background-image: linear-gradient(to right, hsl(221, 91%, 35%), rgb(120, 211, 247)) ; 
+    /*  background: #66b3b6;  */
+    font-family: Roboto, Helvetica, sans-serif;
+}
+
+/* UTILISER DANS : page classement */
+cb{
+  color:blue;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+  font-size:40px;       
+}
+
+/* UTILISER DANS : page classement */
+cv{
+  color:green;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+  font-size:40px;       
+}
+
+/* UTILISER DANS : page classement */
+cr{
+  color:rgb(201, 71, 71);
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+  font-size:40px ;
+}
+
+/* UTILISER DANS : page classement */
+cj{
+  color:gold;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
+  font-size:40px ;
+}
+
+/* taille image */
+img{
+  height: 200px;
+}
+
+
+.img_ligne {
+  display: flex;              /*definit le contenu des img comme flexible pour les manipuler*/
+  justify-content: center;    /*centrer horizontalement*/
+  align-items: center;        /*centrer verticalement*/
+  flex-wrap: wrap;            /*fait un retour a la ligne si plus de place sur la ligne*/
+  margin-bottom: 2%;          /* espace vide sous image de 2%*/
+}
+
+.img_ligne a {
+  margin: 0 2.20%;            /*espace entre img*/
+  flex: 1;                    /*fait que toute l'image est cliquable pour changer de page*/
+  max-width: 20%;             /*bloque a 20% la largeur*/
+}
+
+.img_ligne img {
+  width: 50%;         /*taille image*/
+  height: auto;       /*garde les meme proportion pour toute les image*/
+}
+
+/* BOUTON RETOUR */
+button {
+  border: none;
+  color: #fff; 
+  background-image: linear-gradient(30deg, #1332e27c, #52cadac7); /*degrade*/
+  border-radius: 25px;    /*arrondit les coins*/
+  background-size: 100% auto; /*garde proportion bouton*/
+  font-family: inherit; /*utilise police du texte*/
+  font-size: 30px;  
+  padding: 1em 1,8em;   /*espace entre texte et bouton de 1em en haut/bas et 1.8 a gauche/droite*/
+  cursor: pointer;  /*change curseur*/
+  }
+  
+button:hover {
+  background-position: right center;    /*deplace font bouton vers la droite si il est */
+  background-size: 200% auto;     /*augmente la taille bouton a 200% largeur*/
+  -webkit-animation: pulse 2s infinite;   /*creer une animation*/
+  animation: pulse512 1.5s infinite;      /*creer une animation*/
+  }
+
+/* POPUP */
+    /* position bouton sur la page */
+    .open-btn {
+      display: center;
+      justify-content: flex-start;
+    }
+
+    /*  bouton page */
+    .open-button {
+      background-color: #2d9be0;
+      color: white;
+      padding: 20px 40px;             /* ESPACE HAUT/BAS : 20PX ET GAUCHE/DROITE : 40PX */
+      border: none;
+      border-radius: 50px;            /* ARRONDIS LES COINS  */
+      cursor: pointer;                /* CHANGE CURSEUR EN CLIQUABLE */
+      opacity: 0.8;
+    }
+
+    /* forme Popup */
+    .login-popup {
+      position: relative;
+      text-align: center;
+      width: 100%;                    /* largeur a 100% */ 
+    }
+
+    /* contour popup */
+    .form-popup {
+      display: none;                          /* fait disparaitre le popup */ 
+      position: fixed;                        /* position par rapport fenetre navigateur */
+      left: 50%;                              /*position a 50% largeur */ 
+      top: 5%;                                /* position a 5% haut page */
+      transform: translate(-45%, 5%);         /* ajuste position */
+      border: 2px solid rgb(189, 35, 35);   
+    }
+
+    /* fond popup */
+    .form-container {
+      max-width: 400px;
+      padding: 20px;
+      background-image: linear-gradient(to right, hsl(221, 91%, 35%), rgb(120, 211, 247)) ; 
+    }
+
+/* TABLEAU */
+
+    table {
+      margin: auto;                 /* centre le tableau avec marge auto des 2 cote */
+      border-collapse:collapse;     /* fusionne les bordure des case en une seul bordure */
+      width:40%;                    /* taille tableau a 40% page web */
+    }
+
+    th, td {
+      border:1px solid black; /* creation de bordure autour de chaque case  */
+    }
+
+    td {
+      text-align:center;        /* aligne texte dans case */
+      }

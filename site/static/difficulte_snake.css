@@ -1,0 +1,23 @@
+/*difficulté du snake css*/
+
+h1{
+   display: inline-block;/*pour que les partit soit bien delimiter(je crois)*/
+   background: linear-gradient(to right, green, rgb(194, 113, 47),red);/*couleurs du dégrader + dire de gauche a droite ect*/
+   background-clip: text;/*en gros pour que la partie deriere le texte soit transparente*/
+   -webkit-text-fill-color: transparent;/*couleur texte transparent*/
+   font-size:100px; 
+}
+
+body{
+   text-align: center;
+   background-image: linear-gradient(to right, hsl(221, 84%, 29%), rgb(120, 211, 247)) ;
+   
+}
+
+img{
+   height: 260px;
+}
+
+a{
+   display: inline-block;
+}

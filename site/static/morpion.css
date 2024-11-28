@@ -1,0 +1,43 @@
+body{
+    text-align: center;
+    background-image: linear-gradient(to right, hsl(221, 91%, 35%), rgb(120, 211, 247)) ;
+}
+
+h2{        /* titre page */
+    font-size: 50px;
+    color :black;
+}
+
+#jeu{          /* GRILLE */
+    display: grid;                              /* AFFICHAGE AVEC MODELE GRILLE */
+    grid-template-columns: repeat(3, 1fr);      /* CHOISIT STRUCTURE GRILLE AVEC 3 COLONNE ET OCCUPANT chacune UNE FRACTION */
+    width: 600px;                               /* TAILLE GRILLE */
+    margin: auto;                               /* GRILLE CENTRE AVEC MARGE AUTO DE 2 COTE */
+}
+
+.case{         /* CASE */
+    border: 2px solid black;                  
+    height: 200px;                              /* HAUTEUR A 200PX */
+    line-height: 200px;                         /* HAUTEUR LIGNE = 200PX */
+    font-size: 120px;                           /* taille texte a 120px */
+}
+
+/* BOUTON RETOUR */
+button {
+    border: none;
+    color: #fff;
+    background-image: linear-gradient(30deg, #0077d87c, #4ce3f7c7);
+    border-radius: 25px;
+    background-size: 100% auto;
+    font-family: inherit;
+    font-size: 30px;
+    padding: 1em 1,8em;
+    cursor: pointer;
+    }
+    
+button:hover {
+    background-position: right center;
+    background-size: 200% auto;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse512 1.5s infinite;
+    }

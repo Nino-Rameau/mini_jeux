@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- BOOTSTRAP ET AUTRE-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.118.2">
+    <title>Snake</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/heroes/">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-5.3.2-examples/heroes/bootstrap.min.css') }}">
+
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{url_for('static', filename='snake2.css')}}">
+    <link rel="icon" href="{{url_for('static', filename='logo.PNG')}}">
+    
+  </head>
+  <body>
+
+    <h1>Jeu Snake</h1>
+    <canvas width="400" height="400"></canvas><!--taille de la fenêtre de jeux-->
+    <!--balise pour introduire le java-->
+    <script>
+      const canvas=document.querySelector("canvas")/* on créer une constante dans laquelle on recupere l'élément canvas */
+      const context=canvas.getContext('2d')/*on défini que on va travailler dans un espace en 2d */
+
+      let box=20/* on définie la taille de la boite(a 20)*/
+
+      let snake=[];/*on créer un tableau pour les coordonnées serpent*/
+      snake[0]={ x:10*box, y:10*box}/*on dit que le serpent( sa tête car il n'a que sa en commencant commence se positionne en 10*box et 10*20 pour que la tête du serpent soit au centre*/
+
+      let food={
+        x:Math.floor(Math.random()*15+1)*box,/*détermine la posiotion des fruits aléatoirement et arondie a un entier pour qu'il soit bien placer en x*/
+        y:Math.floor(Math.random()*15+1)*box/*détermine la posiotion des fruits aléatoirement et arondie a un entier pour qu'il soit bien placer en y*/
+      }
+      let score2=0/*on créer une variable score*/
+
+      let d 
+      
+      document.addEventListener("keydown", direction);
+
+      function direction(event){
+        let key=event.keyCode;/*on créer un variable qui va contenir le """code de la touche""" */
+        if(key==37 && d!="RIGHT"){
+          d="LEFT";/*&& veut dire and, la condition veut dire que si on appuie sur fleche de gauche(code37) et que la direction et differente de droite la direction devient donc vers la gauche */
+        }else if(key==38 && d!="DOWN"){
+          d="UP";
+        }else if(key==39 && d!="LEFT"){
+          d="RIGHT";
+        }else if(key==40 && d!="UP"){/*code pour les 4 fleches directionneles */
+          d="DOWN";
+        }else if(key==68 &&d!="LEFT"){
+          d="RIGHT"
+        }else if(key==81 &&d!="RIGHT"){
+          d="LEFT"
+        }else if(key==90 &&d!="DOWN"){
+          d="UP"
+        }else if(key==83 &&d!="UP"){/*code pour les 4 touches zqsd*/
+          d="DOWN"
+        }
+      }
+
+      function draw(){
+        context.clearRect(0, 0, 400, 400)/*initialisation de la posiiton 0x 0y 400with 400height*/
+
+        for(let i = 0; i < snake.length; i++){/*on fais une boucle sur le nombre de case du serpent*/
+          context.fillStyle=(i==0)? "darkOrange":"orange"/*si le serpent n'a que la tête il seras vert alors que si ducoup i>0 il seras vert sinon il seras blanc*/
+          context.fillRect(snake[i].x,snake[i].y,box,box)/*pour chaque elmt du corp du snake on va definir la position en x et en y*/
+          context.strokeStyle="yellow"/*on met une bordure rouge autour des elmts pour bien def les cellules*/
+          context.strokeRect(snake[i].x,snake[i].y,box,box)/*on a donc definit le rectangle en haut et la bordure ici et on fais suivre la bordure au rectangle*/
+        }
+        context.fillStyle="red"/*couleur du fruit*/
+        context.fillRect(food.x,food.y,box,box)/*pour chaque elmt a afficher fillRet et food.x et y  pour le chiffre aléatoire défini en haut;box,box pour utiliser des cases en 20 par 20*/
+
+        let snakeX=snake[0].x/*indice 0 pour la tete*/
+        let snakeY=snake[0].y/*on recupere donc la position de la tête du serpent*/
+
+        if(d=="LEFT") snakeX -=box;/*si on va a gauche la position diminue de une box(20)*/
+        if(d=="UP") snakeY -=box;
+        if(d=="RIGHT") snakeX += box
+        if(d=="DOWN") snakeY += box
+
+        if(snakeX==food.x && snakeY==food.y){/*verifie si le serpent a manger le fruit en regardant la position de la tête du serpent par rapport au fruit*/
+          score2++;/*si le fruit a été manger on ajoute 1 au score*/
+          food={
+            x:Math.floor(Math.random()*15+1)*box,/*copier coller des deux ligne de "let food" pour générer a nouveau un fruit a une position aléatoire*/
+            y:Math.floor(Math.random()*15+1)*box
+          }
+        }else{
+          snake.pop()/*si le serpent n'a pas manger cette nouriture la partie est donc "enlever ou pas donner"*/
+        }
+
+        let newHead={/*on definie que la nouvelle tête du serpent se situe bien sur les axes x et y*/
+          x:snakeX,
+          y:snakeY
+        }
+        if(snakeX<0 || snakeY<0 || snakeX>19*box || snakeY>19*box ||collision(newHead,snake)){/*si la tête du serpent vient taper un des 4 mur snakeX<0.... on arete le jeux avec clearInterval(game);qui stop la sequence*/
+          envoie_score(score2)
+          clearInterval(game);
+        }
+        snake.unshift(newHead);
+
+        context.fillStyle="red"/*couleur*/
+        context.font="30px Arial"/*mise en page*/
+        context.fillText(score2,2*box,1.6*box)/*on affiche le score et on définie la position de celui ci */
+        let scoreElement=document.getElementById("score");/*on dit qu'on ajoute pour l'id score*/
+        scoreElement.textContent=score2;
+      }
+
+      function collision(head,array){/*on créer la fonction collision recement appeler au dessus*/
+        for(let g=0; g<array.length;g++){
+          if(head.x==array[g].x && head.y==array[g].y){/*si la tête touche un elmt du decort on return True pour le dire*/
+            return true;
+          }
+        }
+        return false
+      }
+
+      let game= setInterval(draw,100)
+
+      function envoie_score(score) {/*création d'un objet contenant le score*/
+        const data = {
+          score: score
+        };
+        /*on convertit l'objet en chaine json(representation textuelle d'un objet)*/
+        const jsonData = JSON.stringify(data);
+
+        fetch('/envoyer_score2', {/*envoie d'une requete psot au niveau de envoyer_score1 en utilisant fetchAPI(méthode pour récuperer des ressources)*/
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'/*on precise au serveur le type de contenu que le serveur doit recevoir */
+          },
+          body: jsonData/*corp de la requete contenant les données json */
+        })
+      }
+
+    </script>
+
+    <br>
+    <p2>Le fruit est rouge</p2>
+
+    <br><br><br>
+
+    <!-- BOUTON RECOMMENCER -->
+    <r>
+      <form action="/2" method="GET">
+        <button>Relancer une partie</button>
+      </form>
+    </r>
+
+    <br><br><br>
+
+    <!-- BOUTON CHANGER DE DIFFICULTE -->
+    <r>
+      <form action="/snake" method="GET">
+        <button>Changer de difficulte</button>
+      </form>
+    </r>
+
+    <br><br><br>
+
+    <!-- BOUTON MENU PRINCIPAL -->
+      <form action="/" method="GET">
+        <button>Menu principal</button>
+      </form>
+
+  </body>
+  
+</html>

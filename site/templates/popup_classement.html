@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- BOOTSTRAP ET AUTRE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.118.2">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/heroes/">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-5.3.2-examples/heroes/bootstrap.min.css') }}">
+  
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <title>Classement</title>
+    <link rel="icon" href="{{url_for('static', filename='logo.PNG')}}">
+
+  </head>
+
+  <body>
+
+    <h1>Le top 10 :</h1>
+
+    <cb>Morpion :</cb>
+      <table> <!-- creation d'une table html-->
+        <tr>  <!--balise qui crée une ligne d'en tete (en gras, centrer) -->
+            <th>Classement</th>     <!--balise <th> permet de créer une colone-->
+            <th>Nom du joueur</th>
+            <th>Nombre de victoires</th>
+            <th>Nombre de parties</th>
+        </tr>
+        {% for joueur in classement_m %}    <!--creation d'une boucle avec iteration a chaque joueur qui permet de créer une nouvelle ligne a chaque joueur -->
+            <tr>
+                <td>{{ loop.index }}</td>   <!--balise qui crée une ligne simple-->
+                <td>{{ joueur['pseudo'] }}</td>               
+                <td>{{ joueur['nb_victoire_morpion'] }}</td>
+                <td>{{ joueur['nb_joue_morpion'] }}</td>
+            </tr>
+        {% endfor %}  <!--fin de la boucle-->
+    </table>  <!--fin de la table html-->
+
+    <br><br>
+
+    <cv>Snake niveau 1 :</cv>
+      <table>
+        <tr>
+            <th>Classement</th>
+            <th>Nom du joueur</th>
+            <th>Meilleur score</th>
+            <th>Nombre de parties</th>
+        </tr>
+        {% for joueur in classement_s1 %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ joueur['pseudo'] }}</td>
+                <td>{{ joueur['snake_1'] }}</td>
+                <td>{{ joueur['nb_joue_snake'] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    
+    <br><br>
+    
+    <cj>Snake niveau 2 :</cj>
+      <table>
+        <tr>
+            <th>Classement</th>
+            <th>Nom du joueur</th>
+            <th>Meilleur score</th>
+            <th>Nombre de parties</th>
+        </tr>
+        {% for joueur in classement_s2 %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ joueur['pseudo'] }}</td>
+                <td>{{ joueur['snake_2'] }}</td>
+                <td>{{ joueur['nb_joue_snake'] }}</td>
+            </tr>
+        {% endfor %}
+      </table>
+      
+      <br><br>
+
+    <cr>Snake niveau 3 :</cr>
+      <table>
+        <tr>
+            <th>Classement</th>
+            <th>Nom du joueur</th>
+            <th>Meilleur score</th>
+            <th>Nombre de parties</th>
+        </tr>
+        {% for joueur in classement_s3 %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ joueur['pseudo'] }}</td>
+                <td>{{ joueur['snake_3'] }}</td>
+                <td>{{ joueur['nb_joue_snake'] }}</td>
+            </tr>
+        {% endfor %}
+      </table>
+
+      <br><br>
+
+    <cb>Puissance 4 :</cb>
+      <table>
+        <tr>
+            <th>Classement</th>
+            <th>Nom du joueur</th>
+            <th>Meilleur score</th>
+            <th>Nombre de parties</th>
+        </tr>
+        {% for joueur in classement_p4 %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ joueur['pseudo'] }}</td>
+                <td>{{ joueur['nb_victoire_puissance_4'] }}</td>
+                <td>{{ joueur['nb_joue_puissance_4'] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br><br>
+
+    <!-- BOUTON MENU PRINCIPAL -->
+      <form action="/" method="GET">
+        <button>Menu principal</button>
+      </form>
+
+  </body>
+
+</html>
