@@ -66,7 +66,7 @@ pip install mysql-connector-python
 
 ### Création de la Base de Données et des Tables
 
-Une fois MySQL installé et le connecteur Python prêt, vous pouvez créer la base de données et la table pour stocker les données des badges RFID.
+Une fois MySQL installé et le connecteur Python prêt, vous pouvez créer la base de données et la table pour stocker les données des joueurs.
 
 1. Ouvrez `MySQL Command Line Client` depuis votre barre de recherche et entrez votre mot de passe. 
 
@@ -75,12 +75,12 @@ Une fois MySQL installé et le connecteur Python prêt, vous pouvez créer la ba
 CREATE DATABASE mini_jeux;
 ```
 
-3. Sélectionnez la Base de Données pour pouvoir y ajouter la table de donnée :
+3. Sélectionnez la Base de Données pour pouvoir y ajouter la table de données :
 ```bash
 USE mini_jeux;
 ```
 
-4. Créer la Table `mini_jeux` qui contient les informations des badges RFID :
+4. Créer la Table `mini_jeux` qui contient les informations des joueurs : 
 ```bash
 CREATE TABLE mini_jeux(id int(4) NOT NULL AUTO_INCREMENT, pseudo TEXT, mdp TEXT, snake_1 int(4), snake_2 int(4), snake_3 int(4), nb_joue_snake int(4), nb_victoire_morpion int(4), nb_joue_morpion int(4), nb_victoire_puissance_4 int(4), nb_joue_puissance_4 int(4), PRIMARY KEY(id) );
 ```
@@ -98,7 +98,7 @@ SELECT * FROM mini_jeux;
 
 ### Configuration de la Connexion MySQL dans le Code Python
 
-Maintenant que la base de données est créée, vous devez configurer la connexion MySQL dans votre code Python. Voici le code pour établir la connexion depuis le fichier Python `views.py` (ligne 10 à 16) :
+Maintenant que la base de données est créée, vous devez configurer la connexion MySQL dans votre code Python. Voici le code pour établir la connexion depuis le fichier Python `views.py` (lignes 10 à 16) :
 ```python
 import mysql.connector
 
